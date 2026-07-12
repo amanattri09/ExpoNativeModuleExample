@@ -20,10 +20,6 @@ export default function HomeScreen() {
   useInterview();
   useEffect(() => {
     {
-      (function () {
-        var name = "aman";
-        console.log("Immediate invote function");
-      })();
       getValue();
     }
   }, []);
