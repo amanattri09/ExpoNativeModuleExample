@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AnimatedIcon } from "@/components/animated-icon";
@@ -6,12 +6,17 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { WebBadge } from "@/components/web-badge";
 import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
-import { useEffect } from "react";
+import { requireNativeModule } from "expo-modules-core";
+import { useEffect, useState } from "react";
 import List from "./components/List";
 import useInterview from "./interview/interview";
 
+const ExpoSettings = requireNativeModule("ExpoSettings");
+
 export default function HomeScreen() {
   // Hooks
+  const [count, setCount] = useState(0);
+  const [value, setValue] = useState<string | undefined>("");
   useInterview();
   useEffect(() => {
     {
@@ -19,8 +24,22 @@ export default function HomeScreen() {
         var name = "aman";
         console.log("Immediate invote function");
       })();
+      getValue();
     }
   }, []);
+
+  // Handlers
+
+  const handleSaveValue = async () => {
+    setCount((prev) => prev + 1);
+    await ExpoSettings.setValue("count", count.toString());
+    getValue();
+  };
+
+  async function getValue() {
+    // set value from native module
+    setValue(await ExpoSettings.getValue("count"));
+  }
 
   return (
     <ThemedView style={styles.container}>
@@ -31,6 +50,10 @@ export default function HomeScreen() {
             Welcome to&nbsp;Expo
           </ThemedText>
         </ThemedView>
+
+        <TouchableOpacity onPress={handleSaveValue}>
+          <Text>Save Value {value}</Text>
+        </TouchableOpacity>
 
         <List>
           <List.header title="List Header" />
