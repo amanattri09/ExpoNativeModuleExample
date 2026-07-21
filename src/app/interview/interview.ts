@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+
 export default function useInterview() {
+  useEffect(() => {
+    runAllCode();
+  }, []);
+}
+
+function runAllCode() {
   // Sepread operator
   const numbers = [1, 2, 3];
   const newNumbers = [...numbers, 4, 5];
@@ -40,6 +48,20 @@ export default function useInterview() {
   // palindoime string
   let strPalindome = "madam";
   isPalinDromeString(strPalindome);
+  // remove duplicate
+  const strDuplicate = "amanatmnp";
+  removeDuplicate(strDuplicate);
+  // analgram
+  console.log(`are strings anagram ${anagram("listen", "silent")} `);
+  // reverse string
+  const str4 = "hello how are you";
+  console.log(`reverese a word ${reverseWords(str4)}`);
+  // frequeny oc char
+  frequencyOfCharacter();
+  // fabonacco searies
+  fibonacciSeries(10);
+  // Promise exampel
+  promise2Example();
 }
 
 function testFunction(a: number, ...rest: number[]) {
@@ -54,5 +76,59 @@ function isPalinDromeString(str: string): boolean {
     return true;
   } else {
     return false;
+  }
+}
+
+function removeDuplicate(strDuplicate: string) {
+  const set = new Set(strDuplicate);
+  const uniqueStr = Array.from(set).join("");
+  console.log(`unique str ${uniqueStr}`);
+}
+
+function anagram(str1: string, str2: string): boolean {
+  if (str1.length != str2.length) {
+    return false;
+  }
+  return str1.split("").sort().join("") == str2.split("").sort().join("");
+}
+
+function reverseWords(str: string): string {
+  return str.trim().split(/\s+/).reverse().join(" ");
+}
+
+function frequencyOfCharacter() {
+  const map = new Map<string, number>();
+  const str = "amanatri";
+  for (const char of str) {
+    map.set(char, (map.get(char) || 0) + 1);
+  }
+  console.log(`frequency of character ${JSON.stringify(map)}`);
+}
+
+function fibonacciSeries(n: number) {
+  let a = 0;
+  let b = 1;
+  for (let i = 0; i < n; i++) {
+    let next = a + b;
+    a = b;
+    b = next;
+  }
+  console.log(`fibonacci series ${a} ${b}`);
+}
+
+function promiseExample() {
+  return new Promise((resove, reject) => {
+    setTimeout(() => {
+      resove("success");
+    }, 5000);
+  });
+}
+
+async function promise2Example() {
+  try {
+    const result = await promiseExample();
+    console.log(`promise result ${result}`);
+  } catch (error) {
+    console.log(`promise result ${error}`);
   }
 }
