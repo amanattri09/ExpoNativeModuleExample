@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import useRecursion from "./Recursion";
 
 export default function useInterview() {
+  useRecursion();
   useEffect(() => {
     runAllCode();
   }, []);
