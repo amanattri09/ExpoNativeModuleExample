@@ -62,6 +62,12 @@ function runAllCode() {
   fibonacciSeries(10);
   // Promise exampel
   promise2Example();
+  // Palindome string
+  checkIfStringIsPalinDome();
+  // Reverse an array
+  reverseAnArray();
+  // Largest element in array
+  findSecondLargestElement();
 }
 
 function testFunction(a: number, ...rest: number[]) {
@@ -131,4 +137,42 @@ async function promise2Example() {
   } catch (error) {
     console.log(`promise result ${error}`);
   }
+}
+
+function checkIfStringIsPalinDome() {
+  const str = checkIfStringIsPalinDomeCore("ama");
+  console.log(`is string palindrome ${str}`);
+}
+
+function checkIfStringIsPalinDomeCore(str: string) {
+  return str === str.split("").reverse().join("");
+}
+
+function reverseAnArray() {
+  const array = [1, 2, 3, 4, 5];
+  let left = 0;
+  let right = array.length - 1;
+  while (left < right) {
+    let temp = array[left];
+    array[left] = array[right];
+    array[right] = temp;
+    left++;
+    right--;
+  }
+  console.log(`reverse array : ${array}`);
+}
+
+function findSecondLargestElement() {
+  const array = [1, 3, 4, 5, 6, 7, 74, 4, 6, 67, 75];
+  let largest = -Infinity;
+  let secondLargest = -Infinity;
+  array.forEach((value, index) => {
+    if (value > largest) {
+      secondLargest = largest;
+      largest = value;
+    } else if (value > secondLargest && value != largest) {
+      secondLargest = value;
+    }
+  });
+  console.log(`second largest element ${secondLargest}`);
 }

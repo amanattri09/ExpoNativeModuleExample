@@ -9,7 +9,8 @@ import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 import { requireNativeModule } from "expo-modules-core";
 import { useEffect, useState } from "react";
 import List from "./components/List";
-import useInterview from "./interview/interview";
+import useInterview from "./interview/alogrithim/stringsandarray";
+import ApiServicesDemo from "./interview/api-services/ApiServicesDemo";
 
 const ExpoSettings = requireNativeModule("ExpoSettings");
 
@@ -17,7 +18,12 @@ export default function HomeScreen() {
   // Hooks
   const [count, setCount] = useState(0);
   const [value, setValue] = useState<string | undefined>("");
+  const [activeScreen, setActiveScreen] = useState<"home" | "api-services">(
+    "home",
+  );
+
   useInterview();
+
   useEffect(() => {
     {
       getValue();
@@ -37,6 +43,22 @@ export default function HomeScreen() {
     setValue(await ExpoSettings.getValue("count"));
   }
 
+  if (activeScreen === "api-services") {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#11111b" }}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => setActiveScreen("home")}
+        >
+          <Text style={{ color: "#cdd6f4", fontWeight: "bold" }}>
+            ← Back to Native Module Home
+          </Text>
+        </TouchableOpacity>
+        <ApiServicesDemo />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
@@ -47,8 +69,17 @@ export default function HomeScreen() {
           </ThemedText>
         </ThemedView>
 
-        <TouchableOpacity onPress={handleSaveValue}>
-          <Text>Save Value {value}</Text>
+        <TouchableOpacity
+          style={[styles.navButton, { backgroundColor: "#f9e2af" }]}
+          onPress={() => setActiveScreen("api-services")}
+        >
+          <Text style={{ color: "#11111b", fontWeight: "bold" }}>
+            API Abstraction & Reusable Services
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleSaveValue} style={{ marginTop: 10 }}>
+          <Text style={{ color: "#bac2de" }}>Save Value {value}</Text>
         </TouchableOpacity>
 
         <List>
@@ -97,5 +128,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.four,
     borderRadius: Spacing.four,
+  },
+  navButton: {
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    width: "100%",
+    marginBottom: 8,
+  },
+  backButton: {
+    padding: 12,
+    backgroundColor: "#313244",
+    marginHorizontal: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 8,
   },
 });
