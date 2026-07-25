@@ -1,10 +1,14 @@
+import { useEffect } from "react";
+
 export default function useRecursion() {
-  // print numbers using recursion
-  printNumbers(5);
-  // sum of numbers
-  console.log(`sum of all numbers ${sumNumbers(2)}`);
-  // factorial of number
-  console.log(`factorial number is ${factorialOfNumbers(3)}`);
+  useEffect(() => {
+    // print numbers using recursion
+    printNumbers(5);
+    // sum of numbers
+    console.log(`sum of all numbers ${sumNumbers(2)}`);
+    // factorial of number
+    console.log(`factorial number is ${factorialOfNumbers(3)}`);
+  }, []);
 }
 
 function printNumbers(n: number) {
