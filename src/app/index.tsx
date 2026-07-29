@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import List from "./components/List";
 import useInterview from "./interview/alogrithim/stringsandarray";
 import ApiServicesDemo from "./interview/api-services/ApiServicesDemo";
+import useMoneyGramInterview from "./interviewMoneyGram/MoneygramInterview";
 
 const ExpoSettings = requireNativeModule("ExpoSettings");
 
@@ -23,6 +24,7 @@ export default function HomeScreen() {
   );
 
   useInterview();
+  useMoneyGramInterview();
 
   useEffect(() => {
     {

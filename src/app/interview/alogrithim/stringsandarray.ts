@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import useRecursion from "./Recursion";
-import useStackAndQueue from "./StackAndQueue";
+import useArraysAlgo from "./arrays/ArraysAlgo";
 
 export default function useInterview() {
-  useRecursion();
-  useStackAndQueue();
+  //useRecursion();
+  // useStackAndQueue();
+  // useGeneralAlogrithium();
+  //StringsAlgo();
+  useArraysAlgo();
   useEffect(() => {
-    runAllCode();
+    // runAllCode();
   }, []);
 }
 
@@ -72,6 +74,30 @@ function runAllCode() {
   reverseAnArray();
   // Largest element in array
   findSecondLargestElement();
+
+  // Real interview prepration
+  // Transverse array
+  transverseArray();
+}
+
+function transverseArray() {
+  const array = ["aman", "attri", "kabir", "jyoti"];
+  array.forEach((element, index) => {
+    //console.log(`element is ${element}`);
+  });
+
+  for (let element of array) {
+    console.log(`element is using of ${element}`);
+  }
+  const string = "aman";
+  const chars = string.split("");
+  for (let char of string) {
+    console.log(`char is ${char}`);
+  }
+  // for loop on array
+  for (let i = 0; i < array.length; i++) {
+    console.log(`i is ${i}`);
+  }
 }
 
 function testFunction(a: number, ...rest: number[]) {
