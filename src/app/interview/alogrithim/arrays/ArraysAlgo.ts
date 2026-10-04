@@ -12,7 +12,7 @@ function main() {
   sumOfAllElements();
   findSecondLargestElement();
   sortAnArray();
-  removeDuplicate();
+  removeDuplicates();
 }
 
 function transverseArray() {
